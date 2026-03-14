@@ -1,0 +1,55 @@
+import { Link } from "react-router-dom";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { ArrowRight } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import FloatingButtons from "@/components/FloatingButtons";
+import SectionHeader from "@/components/SectionHeader";
+import { services } from "@/lib/data";
+
+const ServicesPage = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <main>
+      <Navbar />
+      <div className="pt-20">
+        <section className="section-padding" ref={ref}>
+          <div className="container mx-auto">
+            <SectionHeader label="What We Do" title="Our" highlight="Services" />
+            <div className="grid md:grid-cols-2 gap-8">
+              {services.map((service, i) => (
+                <motion.div
+                  key={service.slug}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: i * 0.15 }}
+                >
+                  <Link to={`/services/${service.slug}`} className="glass-card overflow-hidden group block">
+                    <div className="relative h-56 overflow-hidden">
+                      <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="font-heading text-xl mb-3 brand-text">{service.title}</h3>
+                      <p className="text-foreground/60 text-sm leading-relaxed mb-4">{service.description}</p>
+                      <span className="flex items-center gap-2 text-primary text-sm font-medium group-hover:gap-3 transition-all">
+                        Learn More <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+      <Footer />
+      <FloatingButtons />
+    </main>
+  );
+};
+
+export default ServicesPage;

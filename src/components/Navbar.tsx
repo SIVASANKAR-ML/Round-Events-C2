@@ -1,40 +1,49 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/hooks/use-theme";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About Us", href: "#about" },
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
   {
     label: "Services",
-    href: "#services",
+    href: "/services",
     children: [
-      { label: "Weddings", href: "#services" },
-      { label: "Corporate Events", href: "#services" },
-      { label: "Birthday Parties", href: "#services" },
-      { label: "Rentals", href: "#services" },
+      { label: "Weddings", href: "/services/weddings" },
+      { label: "Corporate Events", href: "/services/corporate-events" },
+      { label: "Birthday Parties", href: "/services/birthday-parties" },
+      { label: "Rentals", href: "/services/rentals" },
     ],
   },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Awards", href: "#awards" },
-  { label: "Career", href: "#contact" },
-  { label: "Contact", href: "#contact" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Testimonials", href: "/testimonials" },
+  { label: "Awards", href: "/awards" },
+  { label: "Career", href: "/career" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
+
+  const isActive = (href: string) => {
+    if (href === "/") return location.pathname === "/";
+    return location.pathname.startsWith(href);
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-nav">
       <div className="container mx-auto flex items-center justify-between h-16 md:h-20 px-4">
-        <a href="#home" className="font-heading text-xl md:text-2xl tracking-widest gold-text">
+        <Link to="/" className="font-heading text-xl md:text-2xl tracking-widest brand-text">
           ROUND EVENTS
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-6">
           {navLinks.map((link) =>
             link.children ? (
               <div
@@ -43,10 +52,15 @@ const Navbar = () => {
                 onMouseEnter={() => setServicesOpen(true)}
                 onMouseLeave={() => setServicesOpen(false)}
               >
-                <button className="flex items-center gap-1 text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
+                <Link
+                  to={link.href}
+                  className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+                    isActive(link.href) ? "text-primary" : "text-foreground/70 hover:text-primary"
+                  }`}
+                >
                   {link.label}
                   <ChevronDown className="w-3.5 h-3.5" />
-                </button>
+                </Link>
                 <AnimatePresence>
                   {servicesOpen && (
                     <motion.div
@@ -56,28 +70,39 @@ const Navbar = () => {
                       className="absolute top-full left-0 mt-2 w-48 glass-card p-2"
                     >
                       {link.children.map((child) => (
-                        <a
+                        <Link
                           key={child.label}
-                          href={child.href}
-                          className="block px-4 py-2 text-sm text-foreground/80 hover:text-primary hover:bg-secondary/50 rounded-md transition-colors"
+                          to={child.href}
+                          className="block px-4 py-2 text-sm text-foreground/70 hover:text-primary hover:bg-secondary/50 rounded-md transition-colors"
                         >
                           {child.label}
-                        </a>
+                        </Link>
                       ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
             ) : (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                to={link.href}
+                className={`text-sm font-medium transition-colors ${
+                  isActive(link.href) ? "text-primary" : "text-foreground/70 hover:text-primary"
+                }`}
               >
                 {link.label}
-              </a>
+              </Link>
             )
           )}
+
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg hover:bg-secondary/50 transition-colors text-foreground/70 hover:text-primary"
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+          </button>
+
           <a
             href="https://example.com/book"
             target="_blank"
@@ -88,13 +113,22 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          className="lg:hidden text-foreground"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {/* Mobile Controls */}
+        <div className="lg:hidden flex items-center gap-3">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg hover:bg-secondary/50 transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+          </button>
+          <button
+            className="text-foreground"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -108,14 +142,16 @@ const Navbar = () => {
           >
             <div className="container mx-auto px-4 py-4 flex flex-col gap-3">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
-                  href={link.href}
+                  to={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors py-2"
+                  className={`text-sm font-medium transition-colors py-2 ${
+                    isActive(link.href) ? "text-primary" : "text-foreground/70 hover:text-primary"
+                  }`}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <a href="https://example.com/book" target="_blank" rel="noopener noreferrer" className="cta-button text-sm text-center mt-2">
                 Book Events
