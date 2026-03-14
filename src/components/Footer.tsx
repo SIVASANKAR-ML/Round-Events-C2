@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Instagram, Facebook, Youtube, Phone, Mail } from "lucide-react";
 
 const Footer = () => {
@@ -6,7 +7,7 @@ const Footer = () => {
       <div className="container mx-auto">
         <div className="grid md:grid-cols-3 gap-10 mb-10">
           <div>
-            <h3 className="font-heading text-xl gold-text mb-4 tracking-widest">ROUND EVENTS</h3>
+            <Link to="/" className="font-heading text-xl brand-text mb-4 tracking-widest block">ROUND EVENTS</Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Kochi&apos;s premier event management company. Crafting unforgettable moments since 2014.
             </p>
@@ -14,10 +15,16 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-sm mb-4">Quick Links</h4>
             <div className="flex flex-col gap-2">
-              {["Home", "About Us", "Services", "Gallery", "Contact"].map((l) => (
-                <a key={l} href={`#${l.toLowerCase().replace(" ", "")}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  {l}
-                </a>
+              {[
+                { label: "Home", to: "/" },
+                { label: "About Us", to: "/about" },
+                { label: "Services", to: "/services" },
+                { label: "Gallery", to: "/gallery" },
+                { label: "Contact", to: "/contact" },
+              ].map((l) => (
+                <Link key={l.label} to={l.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  {l.label}
+                </Link>
               ))}
             </div>
           </div>
@@ -45,7 +52,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="border-t border-border/20 pt-6 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Round Events. All rights reserved. | Event Planners in Kochi, Kerala
+          © {new Date().getFullYear()} Round Events. All rights reserved. | Best Event Planners in Kochi, Kerala
         </div>
       </div>
     </footer>
