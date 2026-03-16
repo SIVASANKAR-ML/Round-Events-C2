@@ -67,7 +67,7 @@ const AboutPage = () => {
                       animate={inView ? { opacity: 1, y: 0 } : {}}
                       transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
                       whileHover={{ y: -6, scale: 1.03 }}
-                      className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500"
+                      className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-200"
                     >
                       <Icon className="w-8 h-8 text-primary mx-auto mb-3 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" />
                       <div className="font-heading text-3xl brand-text mb-1">{stat.value}</div>
