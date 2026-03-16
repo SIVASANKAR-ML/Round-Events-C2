@@ -45,7 +45,7 @@ const CareerPage = () => {
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   whileHover={{ y: -6, scale: 1.02 }}
-                  className="glass-card p-6 group hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 cursor-pointer"
+                  className="glass-card p-6 group hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-200 cursor-pointer"
                 >
                   <h3 className="font-heading text-lg brand-text mb-2 group-hover:text-primary transition-colors">{job.title}</h3>
                   <div className="flex flex-wrap gap-3 mb-3 text-xs text-muted-foreground">

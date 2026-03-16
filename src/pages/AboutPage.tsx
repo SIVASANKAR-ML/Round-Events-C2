@@ -67,7 +67,7 @@ const AboutPage = () => {
                       animate={inView ? { opacity: 1, y: 0 } : {}}
                       transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
                       whileHover={{ y: -6, scale: 1.03 }}
-                      className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500"
+                      className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-200"
                     >
                       <Icon className="w-8 h-8 text-primary mx-auto mb-3 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" />
                       <div className="font-heading text-3xl brand-text mb-1">{stat.value}</div>
@@ -83,7 +83,7 @@ const AboutPage = () => {
               <h3 className="font-heading text-2xl text-center mb-10 brand-text">Meet Our Team</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {["Founder & CEO", "Creative Director", "Operations Head", "Marketing Lead"].map((role, i) => (
-                  <motion.div key={role} whileHover={{ y: -6, scale: 1.03 }} className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 cursor-pointer">
+                  <motion.div key={role} whileHover={{ y: -6, scale: 1.03 }} className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-200 cursor-pointer">
                     <div className="w-24 h-24 rounded-full bg-secondary mx-auto mb-4 flex items-center justify-center group-hover:bg-primary/10 transition-colors duration-300">
                       <Users className="w-8 h-8 text-muted-foreground group-hover:text-primary group-hover:scale-110 transition-all duration-300" />
                     </div>

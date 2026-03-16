@@ -26,7 +26,7 @@ const TestimonialsPage = () => {
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   whileHover={{ y: -6, scale: 1.02 }}
-                  className="glass-card p-8 relative hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-500 group"
+                  className="glass-card p-8 relative hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-200 group"
                 >
                   <Quote className="w-8 h-8 text-primary/20 absolute top-6 right-6 group-hover:text-primary/40 group-hover:scale-110 transition-all duration-300" />
                   <div className="flex gap-1 mb-4">
