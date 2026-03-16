@@ -75,15 +75,24 @@ const Index = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
             {services.slice(0, 4).map((service, i) => (
               <AnimatedSection key={service.slug}>
-                <Link to={`/services/${service.slug}`} className="glass-card overflow-hidden group block h-full">
-                  <div className="relative h-48 overflow-hidden">
-                    <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-heading text-lg mb-2 brand-text">{service.title}</h3>
-                    <p className="text-foreground/60 text-sm leading-relaxed line-clamp-2">{service.description}</p>
-                  </div>
+                <Link to={`/services/${service.slug}`}>
+                  <motion.div
+                    whileHover={{ y: -8 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="glass-card overflow-hidden group block h-full hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300"
+                  >
+                    <div className="relative h-48 overflow-hidden">
+                      <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-80 group-hover:opacity-50 transition-opacity duration-500" />
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-heading text-lg mb-2 brand-text group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                      <p className="text-foreground/60 text-sm leading-relaxed line-clamp-2">{service.description}</p>
+                      <span className="inline-flex items-center gap-1 text-primary text-xs font-medium mt-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                        Learn More <ArrowRight className="w-3 h-3" />
+                      </span>
+                    </div>
+                  </motion.div>
                 </Link>
               </AnimatedSection>
             ))}
