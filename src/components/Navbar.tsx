@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
+import logo from "@/assets/logo.png"
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -38,8 +39,18 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-nav">
       <div className="container mx-auto flex items-center justify-between h-16 md:h-20 px-4">
-        <Link to="/" className="font-heading text-xl md:text-2xl tracking-widest brand-text">
-          ROUND EVENTS
+        <Link to="/" className="flex items-center gap-3 font-heading text-xl md:text-2xl tracking-widest brand-text">
+          <img 
+            src={logo} 
+            alt="Round Events India Logo" 
+            className="h-10 md:h-12 w-auto object-contain"
+            style={{
+              mixBlendMode: 'darken',
+              filter: 'contrast(1.1) brightness(1.1)'
+            }}
+          />
+          <span className="hidden sm:inline">ROUND EVENTS INDIA</span>
+          <span className="sm:hidden">ROUND EVENTS</span>
         </Link>
 
         {/* Desktop Nav */}
