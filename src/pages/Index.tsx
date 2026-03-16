@@ -47,11 +47,16 @@ const Index = () => {
                 {stats.map((stat, i) => {
                   const Icon = statIcons[i];
                   return (
-                    <div key={stat.label} className="glass-card p-4 text-center">
-                      <Icon className="w-6 h-6 text-primary mx-auto mb-2" />
+                    <motion.div
+                      key={stat.label}
+                      whileHover={{ y: -6, scale: 1.03 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      className="glass-card p-4 text-center cursor-default group hover:shadow-lg hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300"
+                    >
+                      <Icon className="w-6 h-6 text-primary mx-auto mb-2 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300" />
                       <div className="font-heading text-2xl brand-text">{stat.value}</div>
                       <div className="text-xs text-muted-foreground">{stat.label}</div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
@@ -70,15 +75,24 @@ const Index = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
             {services.slice(0, 4).map((service, i) => (
               <AnimatedSection key={service.slug}>
-                <Link to={`/services/${service.slug}`} className="glass-card overflow-hidden group block h-full">
-                  <div className="relative h-48 overflow-hidden">
-                    <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-heading text-lg mb-2 brand-text">{service.title}</h3>
-                    <p className="text-foreground/60 text-sm leading-relaxed line-clamp-2">{service.description}</p>
-                  </div>
+                <Link to={`/services/${service.slug}`}>
+                  <motion.div
+                    whileHover={{ y: -8 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="glass-card overflow-hidden group block h-full hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300"
+                  >
+                    <div className="relative h-48 overflow-hidden">
+                      <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-80 group-hover:opacity-50 transition-opacity duration-500" />
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-heading text-lg mb-2 brand-text group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                      <p className="text-foreground/60 text-sm leading-relaxed line-clamp-2">{service.description}</p>
+                      <span className="inline-flex items-center gap-1 text-primary text-xs font-medium mt-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                        Learn More <ArrowRight className="w-3 h-3" />
+                      </span>
+                    </div>
+                  </motion.div>
                 </Link>
               </AnimatedSection>
             ))}
@@ -98,12 +112,16 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[180px] mb-10">
             {galleryImages.slice(0, 4).map((img, i) => (
               <AnimatedSection key={i}>
-                <div className="relative overflow-hidden rounded-xl group cursor-pointer h-full">
+                <motion.div
+                  whileHover={{ scale: 1.04 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="relative overflow-hidden rounded-xl group cursor-pointer h-full shadow-md hover:shadow-xl transition-shadow duration-300"
+                >
                   <img src={img.src} alt={img.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-                  <div className="absolute inset-0 bg-background/0 group-hover:bg-background/40 transition-colors duration-300 flex items-center justify-center">
-                    <p className="text-foreground font-medium opacity-0 group-hover:opacity-100 transition-opacity text-sm">{img.alt}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end justify-center pb-4">
+                    <p className="text-foreground font-medium text-sm backdrop-blur-sm bg-background/30 px-3 py-1 rounded-full">{img.alt}</p>
                   </div>
-                </div>
+                </motion.div>
               </AnimatedSection>
             ))}
           </div>
@@ -122,8 +140,12 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-8 mb-10">
             {testimonials.slice(0, 3).map((t, i) => (
               <AnimatedSection key={t.name}>
-                <div className="glass-card p-8 relative h-full">
-                  <Quote className="w-8 h-8 text-primary/20 absolute top-6 right-6" />
+                <motion.div
+                  whileHover={{ y: -6 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="glass-card p-8 relative h-full hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300 group"
+                >
+                  <Quote className="w-8 h-8 text-primary/20 absolute top-6 right-6 group-hover:text-primary/40 group-hover:scale-110 transition-all duration-300" />
                   <div className="flex gap-1 mb-4">
                     {Array.from({ length: t.rating }).map((_, j) => (
                       <Star key={j} className="w-4 h-4 fill-primary text-primary" />
@@ -136,7 +158,7 @@ const Index = () => {
                     <p className="font-semibold text-sm">{t.name}</p>
                     <p className="text-xs text-muted-foreground">{t.event}</p>
                   </div>
-                </div>
+                </motion.div>
               </AnimatedSection>
             ))}
           </div>
@@ -155,11 +177,15 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
             {credentials.map((c, i) => (
               <AnimatedSection key={c.title}>
-                <div className="glass-card p-6 text-center group hover:border-primary/30 transition-colors">
-                  <Trophy className="w-10 h-10 text-primary mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                <motion.div
+                  whileHover={{ y: -6, scale: 1.03 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 cursor-default"
+                >
+                  <Trophy className="w-10 h-10 text-primary mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300" />
                   <h3 className="font-semibold text-sm mb-1">{c.title}</h3>
                   <p className="text-xs text-muted-foreground">{c.subtitle}</p>
-                </div>
+                </motion.div>
               </AnimatedSection>
             ))}
           </div>
