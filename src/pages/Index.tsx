@@ -112,12 +112,16 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[180px] mb-10">
             {galleryImages.slice(0, 4).map((img, i) => (
               <AnimatedSection key={i}>
-                <div className="relative overflow-hidden rounded-xl group cursor-pointer h-full">
+                <motion.div
+                  whileHover={{ scale: 1.04 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="relative overflow-hidden rounded-xl group cursor-pointer h-full shadow-md hover:shadow-xl transition-shadow duration-300"
+                >
                   <img src={img.src} alt={img.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-                  <div className="absolute inset-0 bg-background/0 group-hover:bg-background/40 transition-colors duration-300 flex items-center justify-center">
-                    <p className="text-foreground font-medium opacity-0 group-hover:opacity-100 transition-opacity text-sm">{img.alt}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end justify-center pb-4">
+                    <p className="text-foreground font-medium text-sm backdrop-blur-sm bg-background/30 px-3 py-1 rounded-full">{img.alt}</p>
                   </div>
-                </div>
+                </motion.div>
               </AnimatedSection>
             ))}
           </div>
