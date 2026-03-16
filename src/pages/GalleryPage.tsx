@@ -54,11 +54,13 @@ const GalleryPage = () => {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={inView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.4, delay: i * 0.05 }}
-                  className="relative overflow-hidden rounded-xl aspect-[4/3] group cursor-pointer"
+                  whileHover={{ y: -6, scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="relative overflow-hidden rounded-xl aspect-[4/3] group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-primary/10 transition-shadow duration-500"
                 >
                   <img src={img.src} alt={img.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-                  <div className="absolute inset-0 bg-background/0 group-hover:bg-background/40 transition-colors duration-300 flex items-end p-4">
-                    <p className="text-foreground font-medium opacity-0 group-hover:opacity-100 transition-opacity text-sm">{img.alt}</p>
+                  <div className="absolute inset-0 bg-background/0 group-hover:bg-background/50 backdrop-blur-0 group-hover:backdrop-blur-[2px] transition-all duration-500 flex items-end p-4">
+                    <p className="text-foreground font-medium opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 text-sm">{img.alt}</p>
                   </div>
                 </motion.div>
               ))}
