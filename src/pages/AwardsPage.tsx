@@ -29,10 +29,11 @@ const AwardsPage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
-                    className="glass-card p-8 text-center group hover:border-primary/30 transition-colors"
+                    whileHover={{ y: -6, scale: 1.03 }}
+                    className="glass-card p-8 text-center group hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 cursor-pointer"
                   >
-                    <Icon className="w-12 h-12 text-primary mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                    <h3 className="font-semibold mb-1">{c.title}</h3>
+                    <Icon className="w-12 h-12 text-primary mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" />
+                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">{c.title}</h3>
                     <p className="text-sm text-muted-foreground">{c.subtitle}</p>
                   </motion.div>
                 );
