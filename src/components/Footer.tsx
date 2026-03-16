@@ -32,9 +32,9 @@ const Footer = () => {
             <h4 className="font-semibold text-sm mb-4">Connect</h4>
             <div className="flex gap-3 mb-4">
               {[
-                { icon: Instagram, href: "https://instagram.com/roundevents" },
-                { icon: Facebook, href: "https://facebook.com/roundevents" },
-                { icon: Youtube, href: "https://youtube.com/roundevents" },
+                { icon: Instagram, href: "#" },
+                { icon: Facebook, href: "#" },
+                { icon: Youtube, href: "#" },
               ].map(({ icon: Icon, href }) => (
                 <a key={href} href={href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-border/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors">
                   <Icon className="w-4 h-4" />
