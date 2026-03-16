@@ -140,8 +140,12 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-8 mb-10">
             {testimonials.slice(0, 3).map((t, i) => (
               <AnimatedSection key={t.name}>
-                <div className="glass-card p-8 relative h-full">
-                  <Quote className="w-8 h-8 text-primary/20 absolute top-6 right-6" />
+                <motion.div
+                  whileHover={{ y: -6 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="glass-card p-8 relative h-full hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300 group"
+                >
+                  <Quote className="w-8 h-8 text-primary/20 absolute top-6 right-6 group-hover:text-primary/40 group-hover:scale-110 transition-all duration-300" />
                   <div className="flex gap-1 mb-4">
                     {Array.from({ length: t.rating }).map((_, j) => (
                       <Star key={j} className="w-4 h-4 fill-primary text-primary" />
@@ -154,7 +158,7 @@ const Index = () => {
                     <p className="font-semibold text-sm">{t.name}</p>
                     <p className="text-xs text-muted-foreground">{t.event}</p>
                   </div>
-                </div>
+                </motion.div>
               </AnimatedSection>
             ))}
           </div>
