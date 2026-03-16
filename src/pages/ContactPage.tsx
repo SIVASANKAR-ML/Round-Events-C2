@@ -72,24 +72,24 @@ const ContactPage = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="space-y-6"
               >
-                <motion.div whileHover={{ y: -4, scale: 1.02 }} className="glass-card p-6 flex items-start gap-4 group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 transition-all duration-500 cursor-pointer">
-                  <MapPin className="w-5 h-5 text-primary mt-0.5 shrink-0 group-hover:scale-110 transition-transform" />
+                <motion.div whileHover={{ y: -4, scale: 1.02 }} className="glass-card p-6 flex items-start gap-4 group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 transition-all duration-200 cursor-pointer">
+                  <MapPin className="w-5 h-5 text-primary mt-0.5 shrink-0 group-hover:scale-110 transition-transform duration-200" />
                   <div>
-                    <p className="font-semibold text-sm group-hover:text-primary transition-colors">Our Office</p>
+                    <p className="font-semibold text-sm group-hover:text-primary transition-colors duration-200">Our Office</p>
                     <p className="text-sm text-muted-foreground">MG Road, Ernakulam, Kochi, Kerala 682011</p>
                   </div>
                 </motion.div>
-                <motion.div whileHover={{ y: -4, scale: 1.02 }} className="glass-card p-6 flex items-start gap-4 group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 transition-all duration-500 cursor-pointer">
-                  <Phone className="w-5 h-5 text-primary mt-0.5 shrink-0 group-hover:scale-110 transition-transform" />
+                <motion.div whileHover={{ y: -4, scale: 1.02 }} className="glass-card p-6 flex items-start gap-4 group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 transition-all duration-200 cursor-pointer">
+                  <Phone className="w-5 h-5 text-primary mt-0.5 shrink-0 group-hover:scale-110 transition-transform duration-200" />
                   <div>
-                    <p className="font-semibold text-sm group-hover:text-primary transition-colors">Call Us</p>
+                    <p className="font-semibold text-sm group-hover:text-primary transition-colors duration-200">Call Us</p>
                     <a href="tel:+919876543210" className="text-sm text-primary hover:underline">+91 98765 43210</a>
                   </div>
                 </motion.div>
-                <motion.div whileHover={{ y: -4, scale: 1.02 }} className="glass-card p-6 flex items-start gap-4 group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 transition-all duration-500 cursor-pointer">
-                  <Mail className="w-5 h-5 text-primary mt-0.5 shrink-0 group-hover:scale-110 transition-transform" />
+                <motion.div whileHover={{ y: -4, scale: 1.02 }} className="glass-card p-6 flex items-start gap-4 group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 transition-all duration-200 cursor-pointer">
+                  <Mail className="w-5 h-5 text-primary mt-0.5 shrink-0 group-hover:scale-110 transition-transform duration-200" />
                   <div>
-                    <p className="font-semibold text-sm group-hover:text-primary transition-colors">Email</p>
+                    <p className="font-semibold text-sm group-hover:text-primary transition-colors duration-200">Email</p>
                     <a href="mailto:hello@roundevents.in" className="text-sm text-primary hover:underline">hello@roundevents.in</a>
                   </div>
                 </motion.div>

@@ -56,7 +56,7 @@ const GalleryPage = () => {
                   transition={{ duration: 0.4, delay: i * 0.05 }}
                   whileHover={{ y: -6, scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
-                  className="relative overflow-hidden rounded-xl aspect-[4/3] group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-primary/10 transition-shadow duration-500"
+                  className="relative overflow-hidden rounded-xl aspect-[4/3] group cursor-pointer shadow-md hover:shadow-2xl hover:shadow-primary/10 transition-shadow duration-200"
                 >
                   <img src={img.src} alt={img.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
                   <div className="absolute inset-0 bg-background/0 group-hover:bg-background/50 backdrop-blur-0 group-hover:backdrop-blur-[2px] transition-all duration-500 flex items-end p-4">
