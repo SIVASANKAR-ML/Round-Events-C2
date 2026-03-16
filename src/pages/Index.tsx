@@ -177,11 +177,15 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
             {credentials.map((c, i) => (
               <AnimatedSection key={c.title}>
-                <div className="glass-card p-6 text-center group hover:border-primary/30 transition-colors">
-                  <Trophy className="w-10 h-10 text-primary mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                <motion.div
+                  whileHover={{ y: -6, scale: 1.03 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 cursor-default"
+                >
+                  <Trophy className="w-10 h-10 text-primary mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300" />
                   <h3 className="font-semibold text-sm mb-1">{c.title}</h3>
                   <p className="text-xs text-muted-foreground">{c.subtitle}</p>
-                </div>
+                </motion.div>
               </AnimatedSection>
             ))}
           </div>
