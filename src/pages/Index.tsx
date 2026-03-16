@@ -47,11 +47,16 @@ const Index = () => {
                 {stats.map((stat, i) => {
                   const Icon = statIcons[i];
                   return (
-                    <div key={stat.label} className="glass-card p-4 text-center">
-                      <Icon className="w-6 h-6 text-primary mx-auto mb-2" />
+                    <motion.div
+                      key={stat.label}
+                      whileHover={{ y: -6, scale: 1.03 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      className="glass-card p-4 text-center cursor-default group hover:shadow-lg hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300"
+                    >
+                      <Icon className="w-6 h-6 text-primary mx-auto mb-2 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300" />
                       <div className="font-heading text-2xl brand-text">{stat.value}</div>
                       <div className="text-xs text-muted-foreground">{stat.label}</div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
