@@ -1,71 +1,86 @@
-# Welcome to your Lovable project
+🎉 Round Events India – Web Application
+🌐 Project Overview
 
-## Project info
+Round Events India is a modern web application designed to showcase and manage event-related services such as event planning, rentals, and bookings. The platform provides users with an intuitive interface to explore services, view details, and connect with the business seamlessly.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+🚀 Live Project
 
-## How can I edit this code?
+🔗 Visit the project:
+https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
 
-There are several ways of editing your application.
+🛠️ How to Edit This Project
 
-**Use Lovable**
+You can work on this project using any of the following methods:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+1. ✨ Using Lovable (Recommended)
+Go to the Lovable project link above
+Start prompting to make changes
+All updates are automatically committed to the repository
+2. 💻 Using Your Local Development Environment
+Prerequisites:
+Install Node.js & npm
+👉 https://github.com/nvm-sh/nvm#installing-and-updating
+Steps:
+# Clone the repository
+git clone GIT_URL
 
-Changes made via Lovable will be committed automatically to this repo.
+# Navigate into the project folder
+cd PROJECT_NAME
 
-**Use your preferred IDE**
+# Install dependencies
+npm install
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Run the development server
 npm run dev
-```
 
-**Edit a file directly in GitHub**
+The app will start with live reloading for instant updates.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+3. 📝 Edit Directly on GitHub
+Open the repository
+Navigate to any file
+Click the ✏️ (Edit) button
+Commit your changes
+4. ☁️ Use GitHub Codespaces
+Open your repository
+Click Code → Codespaces
+Launch a new Codespace
+Edit, commit, and push changes directly in the browser
+⚙️ Tech Stack
 
-**Use GitHub Codespaces**
+This project is built using modern frontend technologies:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+⚡ Vite – Fast build tool
+🟦 TypeScript – Type-safe JavaScript
+⚛️ React – UI library
+🎨 Tailwind CSS – Utility-first styling
+🧩 shadcn-ui – Reusable UI components
+📦 Features
+📋 Service listing and management
+🖼️ Image-based service showcase
+🔎 SEO-friendly structure (slug-based routing)
+⚡ Fast and responsive UI
+📱 Mobile-friendly design
+🚀 Deployment
 
-## What technologies are used for this project?
+To deploy your project:
 
-This project is built with:
+Open the Lovable dashboard
+Click Share → Publish
+Your project will go live instantly
+🌍 Custom Domain Setup
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+You can connect your own domain via Lovable:
 
-## How can I deploy this project?
+Go to Project Settings
+Add your custom domain
+Follow the DNS configuration steps
+📞 About Round Events India
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+Round Events India specializes in:
 
-## Can I connect a custom domain to my Lovable project?
-
+Event Planning
+Equipment Rentals
+Corporate & Personal Event Solutions
 Yes, you can!
 
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
