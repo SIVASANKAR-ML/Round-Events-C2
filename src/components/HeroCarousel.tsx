@@ -2,18 +2,41 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { heroSlides } from "@/lib/data";
+import { useFrappe } from "@/hooks/useFrappe";
+import { getHeroSlides } from "@/api/index";
+import type { HeroSlide } from "@/types/api";
 
 const HeroCarousel = () => {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState<number>(0);
+  const { data: slides, loading, error } = useFrappe<HeroSlide[]>(getHeroSlides);
 
-  const next = useCallback(() => setCurrent((p) => (p + 1) % heroSlides.length), []);
-  const prev = useCallback(() => setCurrent((p) => (p - 1 + heroSlides.length) % heroSlides.length), []);
+  const total = slides?.length ?? 1;
+  const next = useCallback(() => setCurrent((p) => (p + 1) % total), [total]);
+  const prev = useCallback(() => setCurrent((p) => (p - 1 + total) % total), [total]);
 
   useEffect(() => {
+    if (!slides?.length) return;
     const timer = setInterval(next, 5000);
     return () => clearInterval(timer);
-  }, [next]);
+  }, [next, slides]);
+
+  if (loading) {
+    return (
+      <section className="relative h-screen flex items-center justify-center bg-background">
+        <p className="text-foreground/50 animate-pulse">Loading...</p>
+      </section>
+    );
+  }
+
+  if (error || !slides?.length) {
+    return (
+      <section className="relative h-screen flex items-center justify-center bg-background">
+        <p className="text-foreground/50">Unable to load slides.</p>
+      </section>
+    );
+  }
+
+  const slide: HeroSlide = slides[current];
 
   return (
     <section className="relative h-screen overflow-hidden">
@@ -27,8 +50,8 @@ const HeroCarousel = () => {
           className="absolute inset-0"
         >
           <img
-            src={heroSlides[current].image}
-            alt={heroSlides[current].title}
+            src={slide.image}
+            alt={slide.title}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
@@ -57,7 +80,7 @@ const HeroCarousel = () => {
               transition={{ duration: 0.6 }}
               className="font-heading text-4xl md:text-6xl lg:text-7xl tracking-wide mb-3 leading-tight"
             >
-              {heroSlides[current].title}
+              {slide.title}
             </motion.h1>
           </AnimatePresence>
 
@@ -70,7 +93,7 @@ const HeroCarousel = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="font-subheading text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto mb-10 italic"
             >
-              {heroSlides[current].subtitle}
+              {slide.subtitle}
             </motion.p>
           </AnimatePresence>
 
@@ -78,7 +101,10 @@ const HeroCarousel = () => {
             <Link to="/contact" className="cta-button text-base">
               Request a Quote
             </Link>
-            <a href="tel:+919876543210" className="cta-button-outline text-base flex items-center gap-2">
+            
+            <a  href="tel:+919876543210"
+              className="cta-button-outline text-base flex items-center gap-2"
+            >
               <Phone className="w-4 h-4" />
               Call Now
             </a>
@@ -104,7 +130,7 @@ const HeroCarousel = () => {
 
       {/* Dots */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-        {heroSlides.map((_, i) => (
+        {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}

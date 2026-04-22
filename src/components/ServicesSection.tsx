@@ -1,41 +1,14 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
-import weddingImg from "@/assets/wedding.jpg";
-import corporateImg from "@/assets/corporate.jpg";
-import birthdayImg from "@/assets/birthday.jpg";
-import rentalsImg from "@/assets/rentals.jpg";
-
-const services = [
-  {
-    title: "Weddings",
-    description:
-      "From traditional ceremonies to contemporary celebrations, we create dream weddings that reflect your unique love story.",
-    image: weddingImg,
-  },
-  {
-    title: "Corporate Events",
-    description:
-      "Impress stakeholders with perfectly orchestrated conferences, product launches, and corporate galas.",
-    image: corporateImg,
-  },
-  {
-    title: "Birthday Parties",
-    description:
-      "Celebrate milestones with themed parties, elegant décor, and unforgettable entertainment experiences.",
-    image: birthdayImg,
-  },
-  {
-    title: "Rentals",
-    description:
-      "Premium event equipment, furniture, and décor rentals to elevate any occasion with sophistication.",
-    image: rentalsImg,
-  },
-];
+import { useFrappe } from "@/hooks/useFrappe";
+import { getServices } from "@/api";
+import type { Service } from "@/types/api";
 
 const ServicesSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { data: services, loading, error } = useFrappe<Service[]>(getServices);
 
   return (
     <section id="services" className="section-padding bg-secondary/30">
@@ -55,9 +28,21 @@ const ServicesSection = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {services.map((service, i) => (
+          {loading &&
+            Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="glass-card overflow-hidden animate-pulse">
+                <div className="h-56 bg-muted" />
+                <div className="p-6 space-y-3">
+                  <div className="h-3 bg-muted rounded w-1/3" />
+                  <div className="h-2 bg-muted rounded w-full" />
+                  <div className="h-2 bg-muted rounded w-4/5" />
+                </div>
+              </div>
+            ))}
+
+          {!loading && !error && services?.map((service, i) => (
             <motion.div
-              key={service.title}
+              key={service.name}
               initial={{ opacity: 0, y: 40, scale: 0.95 }}
               animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
               transition={{ duration: 0.6, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -87,7 +72,7 @@ const ServicesSection = () => {
               </div>
               <div className="p-6">
                 <p className="text-foreground/60 text-sm leading-relaxed mb-4">
-                  {service.description}
+                  {service.short_description}
                 </p>
                 <button className="flex items-center gap-2 text-primary text-sm font-medium group-hover:gap-3 transition-all duration-300">
                   Request Quote

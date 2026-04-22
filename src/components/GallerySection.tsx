@@ -1,24 +1,18 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import gallery1 from "@/assets/gallery1.jpg";
-import gallery2 from "@/assets/gallery2.jpg";
-import gallery3 from "@/assets/gallery3.jpg";
-import weddingImg from "@/assets/wedding.jpg";
-import corporateImg from "@/assets/corporate.jpg";
-import rentalsImg from "@/assets/rentals.jpg";
+import { useFrappe } from "@/hooks/useFrappe";
+import { getGallery } from "@/api";
+import type { GalleryImage } from "@/types/api";
 
-const images = [
-  { src: gallery1, alt: "Elegant floral centerpieces", span: "md:col-span-2 md:row-span-2" },
-  { src: gallery2, alt: "Dramatic venue lighting", span: "" },
-  { src: gallery3, alt: "Outdoor sunset event", span: "" },
-  { src: weddingImg, alt: "Wedding ceremony setup", span: "md:col-span-2" },
-  { src: corporateImg, alt: "Corporate event stage", span: "" },
-  { src: rentalsImg, alt: "Premium tent setup", span: "" },
-];
+const spanMap: Record<number, string> = {
+  0: "md:col-span-2 md:row-span-2",
+  3: "md:col-span-2",
+};
 
 const GallerySection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { data: images, loading, error } = useFrappe<GalleryImage[]>(getGallery);
 
   return (
     <section id="gallery" className="section-padding">
@@ -38,23 +32,31 @@ const GallerySection = () => {
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[200px] md:auto-rows-[220px]">
-          {images.map((img, i) => (
+          {loading &&
+            Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className={`rounded-xl bg-muted animate-pulse ${spanMap[i] ?? ""}`}
+              />
+            ))}
+
+          {!loading && !error && images?.map((img, i) => (
             <motion.div
-              key={i}
+              key={img.name}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`relative overflow-hidden rounded-xl group cursor-pointer ${img.span}`}
+              className={`relative overflow-hidden rounded-xl group cursor-pointer ${spanMap[i] ?? ""}`}
             >
               <img
-                src={img.src}
-                alt={img.alt}
+                src={img.image}
+                alt={img.alt_text}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-background/0 group-hover:bg-background/40 transition-colors duration-300 flex items-center justify-center">
                 <p className="text-foreground font-medium opacity-0 group-hover:opacity-100 transition-opacity text-sm">
-                  {img.alt}
+                  {img.alt_text}
                 </p>
               </div>
             </motion.div>
