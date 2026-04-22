@@ -18,7 +18,7 @@ const AboutPage = () => {
       <div className="pt-20">
         <section className="section-padding" ref={ref}>
           <div className="container mx-auto">
-            <SectionHeader label="About Us" title="Where Elegance Meets" highlight="Excellence" />
+            <SectionHeader label="About Us" title="South India's" highlight="Event Alchemists" />
 
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <motion.div
@@ -28,25 +28,27 @@ const AboutPage = () => {
               >
                 <h3 className="font-heading text-2xl mb-4 brand-text">Our Story</h3>
                 <p className="text-foreground/70 leading-relaxed mb-6">
-                  Round Events is Kochi&apos;s premier event management company, dedicated to curating world-class
-                  experiences that leave lasting impressions. Our team of passionate professionals blends creativity
-                  with precision, ensuring every detail is meticulously planned and flawlessly executed.
+                  Founded in 1999, Round Events is South India&apos;s premier event production and management
+                  company. Known as &quot;South India&apos;s Event Alchemists,&quot; we specialize in transforming
+                  simple concepts into grand spectacles with 25 years of experience and a passion for precision.
                 </p>
                 <p className="text-foreground/70 leading-relaxed mb-6">
-                  From intimate celebrations to grand corporate galas, we bring your vision to life with
-                  sophistication and style that sets new standards in the industry. With over a decade of
-                  experience, we have grown to become one of the most trusted names in event management across Kerala.
+                  We have evolved from a local service provider to a high-capacity production company capable of
+                  handling events of any scale, no matter the complexity. Our massive in-house infrastructure and
+                  diverse team of skilled craftsmen, creative designers, and expert event managers set us apart.
                 </p>
-                <p className="text-foreground/70 leading-relaxed mb-8">
-                  Our approach is simple: listen to our clients, understand their vision, and deliver beyond
-                  expectations. Every event is a new canvas, and we paint it with passion, precision, and creativity.
+                <p className="text-foreground/70 leading-relaxed mb-6 italic border-l-2 border-primary pl-4">
+                  &quot;At Round Events, we don&apos;t just manage events; we create memories. For 25 years, our goal
+                  has been to bridge the gap between imagination and reality.&quot;
                 </p>
+                <p className="text-sm text-muted-foreground mb-8">— Chairman, Round Events India</p>
 
                 {/* Video placeholder */}
                 <div className="glass-card aspect-video flex items-center justify-center cursor-pointer group">
                   <div className="w-16 h-16 rounded-full border-2 border-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <div className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent ml-1"
-                      style={{ borderLeftWidth: '14px', borderLeftColor: 'hsl(var(--primary))' }}
+                    <div
+                      className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent ml-1"
+                      style={{ borderLeftWidth: "14px", borderLeftColor: "hsl(var(--primary))" }}
                     />
                   </div>
                 </div>
@@ -82,12 +84,16 @@ const AboutPage = () => {
             <div className="mt-20">
               <h3 className="font-heading text-2xl text-center mb-10 brand-text">Meet Our Team</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {["Founder & CEO", "Creative Director", "Operations Head", "Marketing Lead"].map((role, i) => (
-                  <motion.div key={role} whileHover={{ y: -6, scale: 1.03 }} className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-200 cursor-pointer">
+                {["Chairman", "Creative Director", "Operations Head", "Marketing Lead"].map((role) => (
+                  <motion.div
+                    key={role}
+                    whileHover={{ y: -6, scale: 1.03 }}
+                    className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-200 cursor-pointer"
+                  >
                     <div className="w-24 h-24 rounded-full bg-secondary mx-auto mb-4 flex items-center justify-center group-hover:bg-primary/10 transition-colors duration-300">
                       <Users className="w-8 h-8 text-muted-foreground group-hover:text-primary group-hover:scale-110 transition-all duration-300" />
                     </div>
-                    <p className="font-semibold text-sm group-hover:text-primary transition-colors">Team Member</p>
+                    <p className="font-semibold text-sm group-hover:text-primary transition-colors">Round Events</p>
                     <p className="text-xs text-muted-foreground">{role}</p>
                   </motion.div>
                 ))}

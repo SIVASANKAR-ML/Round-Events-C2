@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ArrowRight, Star, Quote, Trophy, Calendar, Users, Award } from "lucide-react";
+import { ArrowRight, Star, Quote, Trophy, Calendar, Users, Award, Warehouse, Clock, Wrench, Cpu } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import HeroCarousel from "@/components/HeroCarousel";
 import Footer from "@/components/Footer";
@@ -25,6 +25,33 @@ const AnimatedSection = ({ children, className = "" }: { children: React.ReactNo
   );
 };
 
+const whyUs = [
+  {
+    icon: Warehouse,
+    title: "Massive In-House Infrastructure",
+    description:
+      "We own all our equipment — German Hangar Tents, AC units, stages, barricades, and more — giving you better quality control and cost-effectiveness.",
+  },
+  {
+    icon: Clock,
+    title: "25 Years of Experience",
+    description:
+      "Since 1999, we have seen and solved every challenge the industry can throw at us. Thousands of events. Zero compromises.",
+  },
+  {
+    icon: Wrench,
+    title: "Custom Fabrication",
+    description:
+      "If it doesn't exist, we build it. Our in-house workshops craft bespoke sets and décor tailored precisely to your theme and vision.",
+  },
+  {
+    icon: Cpu,
+    title: "Technological Edge",
+    description:
+      "We constantly explore new techniques to stay ahead of global trends, from cutting-edge lighting rigs to modern event tech.",
+  },
+];
+
 const Index = () => {
   const statIcons = [Calendar, Users, Award, Star];
 
@@ -36,12 +63,13 @@ const Index = () => {
       {/* About Preview */}
       <section className="section-padding">
         <div className="container mx-auto">
-          <SectionHeader label="About Us" title="Where Elegance Meets" highlight="Excellence" />
+          <SectionHeader label="About Us" title="South India's" highlight="Event Alchemists" />
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center">
               <p className="text-foreground/70 leading-relaxed mb-6">
-                Round Events is Kochi&apos;s premier event management company, dedicated to curating world-class experiences
-                that leave lasting impressions. Our team of passionate professionals blends creativity with precision.
+                Founded in 1999, Round Events is South India&apos;s premier event production and management company.
+                We specialize in transforming simple concepts into grand spectacles — blending creativity with
+                flawless technical execution for over 25 years.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 {stats.map((stat, i) => {
@@ -73,7 +101,7 @@ const Index = () => {
         <div className="container mx-auto">
           <SectionHeader label="What We Do" title="Our" highlight="Services" />
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-            {services.slice(0, 4).map((service, i) => (
+            {services.slice(0, 4).map((service) => (
               <AnimatedSection key={service.slug}>
                 <Link to={`/services/${service.slug}`}>
                   <motion.div
@@ -133,12 +161,36 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials Preview */}
+      {/* Why Round Events */}
       <section className="section-padding bg-secondary/30">
+        <div className="container mx-auto">
+          <SectionHeader label="Why Choose Us" title="The Round Events" highlight="Difference" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {whyUs.map((item, i) => (
+              <AnimatedSection key={item.title}>
+                <motion.div
+                  whileHover={{ y: -6, scale: 1.03 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 cursor-default h-full"
+                >
+                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors duration-300">
+                    <item.icon className="w-7 h-7 text-primary group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300" />
+                  </div>
+                  <h3 className="font-heading text-base mb-2 brand-text">{item.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.description}</p>
+                </motion.div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Preview */}
+      <section className="section-padding">
         <div className="container mx-auto">
           <SectionHeader label="Testimonials" title="What Our" highlight="Clients Say" />
           <div className="grid md:grid-cols-3 gap-8 mb-10">
-            {testimonials.slice(0, 3).map((t, i) => (
+            {testimonials.slice(0, 3).map((t) => (
               <AnimatedSection key={t.name}>
                 <motion.div
                   whileHover={{ y: -6 }}
@@ -171,11 +223,11 @@ const Index = () => {
       </section>
 
       {/* Awards Preview */}
-      <section className="section-padding">
+      <section className="section-padding bg-secondary/30">
         <div className="container mx-auto">
           <SectionHeader label="Our Credentials" title="Awards &" highlight="Certificates" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
-            {credentials.map((c, i) => (
+            {credentials.map((c) => (
               <AnimatedSection key={c.title}>
                 <motion.div
                   whileHover={{ y: -6, scale: 1.03 }}
@@ -198,18 +250,19 @@ const Index = () => {
       </section>
 
       {/* Contact CTA */}
-      <section className="section-padding bg-secondary/30">
+      <section className="section-padding">
         <div className="container mx-auto text-center">
-          <SectionHeader label="Get In Touch" title="Let's Plan Your" highlight="Event" />
+          <SectionHeader label="Get In Touch" title="Let's Plan Your" highlight="Dream Event" />
           <AnimatedSection>
             <p className="text-foreground/70 max-w-xl mx-auto mb-8">
-              Ready to create something extraordinary? Get in touch with our team for a free consultation.
+              From intimate gatherings to massive corporate summits — we are with you from day one.
+              Contact us for a free consultation with South India&apos;s most trusted event alchemists.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact" className="cta-button text-base">
-                Contact Us
+                Request a Quote
               </Link>
-              <a href="tel:+919876543210" className="cta-button-outline text-base">
+              <a href="tel:+919846007575" className="cta-button-outline text-base">
                 Call Now
               </a>
             </div>
