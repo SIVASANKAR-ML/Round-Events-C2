@@ -28,7 +28,7 @@ const AboutPage = () => {
               >
                 <h3 className="font-heading text-2xl mb-4 brand-text">Our Story</h3>
                 <p className="text-foreground/70 leading-relaxed mb-6">
-                  Founded in 1999, Round Events is South India&apos;s premier event production and management
+                  Founded in 1999,  Round Events is South India&apos;s premier event production and management
                   company. Known as &quot;South India&apos;s Event Alchemists,&quot; we specialize in transforming
                   simple concepts into grand spectacles with 25 years of experience and a passion for precision.
                 </p>
