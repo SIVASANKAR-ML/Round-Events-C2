@@ -4,11 +4,11 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
 
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL, // e.g. http://localhost:8000
-  withCredentials: true, // required for Frappe session cookies
+  baseURL: BASE_URL,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
-    "X-Frappe-CSRF-Token": "fetch", // Frappe needs this for non-GET requests
+    "X-Frappe-CSRF-Token": "fetch",
   },
 });
 

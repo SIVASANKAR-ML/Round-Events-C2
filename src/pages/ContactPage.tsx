@@ -1,25 +1,52 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Send, MapPin, Phone, Mail } from "lucide-react";
+import { Send, MapPin, Phone, Mail, Loader2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingButtons from "@/components/FloatingButtons";
 import SectionHeader from "@/components/SectionHeader";
+import { submitEnquiry } from "@/api/index";
+
+const BUDGET_OPTIONS = [
+  "Under ₹1 Lakh",
+  "₹1 - 5 Lakhs",
+  "₹5 - 10 Lakhs",
+  "₹10 - 25 Lakhs",
+  "₹25 Lakhs+",
+] as const;
 
 const ContactPage = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [form, setForm] = useState({ name: "", phone: "", date: "", budget: "" });
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.phone.trim()) {
       toast({ title: "Please fill in required fields", variant: "destructive" });
       return;
     }
-    toast({ title: "Enquiry sent!", description: "We'll get back to you within 24 hours." });
-    setForm({ name: "", phone: "", date: "", budget: "" });
+    setSubmitting(true);
+    try {
+      await submitEnquiry({
+        fullName: form.name,
+        phone: form.phone,
+        eventDate: form.date || undefined,
+        budgetRange: form.budget || undefined,
+      });
+      toast({ title: "Enquiry sent!", description: "We'll get back to you within 24 hours." });
+      setForm({ name: "", phone: "", date: "", budget: "" });
+    } catch (err: unknown) {
+      const msg =
+        (err as { response?: { data?: { message?: string } } })?.response?.data?.message ||
+        (err as Error)?.message ||
+        "Something went wrong. Please try again.";
+      toast({ title: "Submission failed", description: msg, variant: "destructive" });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -54,15 +81,14 @@ const ContactPage = () => {
                   <label className="text-sm text-muted-foreground mb-1.5 block">Budget Range</label>
                   <select value={form.budget} onChange={(e) => setForm({ ...form, budget: e.target.value })} className="w-full bg-secondary/50 border border-border/50 rounded-lg px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary transition-colors">
                     <option value="">Select budget range</option>
-                    <option value="under-1l">Under ₹1 Lakh</option>
-                    <option value="1-5l">₹1 - 5 Lakhs</option>
-                    <option value="5-10l">₹5 - 10 Lakhs</option>
-                    <option value="10-25l">₹10 - 25 Lakhs</option>
-                    <option value="25l+">₹25 Lakhs+</option>
+                    {BUDGET_OPTIONS.map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
                   </select>
                 </div>
-                <button type="submit" className="cta-button w-full flex items-center justify-center gap-2">
-                  <Send className="w-4 h-4" /> Send Enquiry
+                <button type="submit" disabled={submitting} className="cta-button w-full flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                  {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                  {submitting ? "Sending..." : "Send Enquiry"}
                 </button>
               </motion.form>
 

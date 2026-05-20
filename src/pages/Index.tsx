@@ -1,13 +1,41 @@
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ArrowRight, Star, Quote, Trophy, Calendar, Users, Award, Warehouse, Clock, Wrench, Cpu } from "lucide-react";
+import { ArrowRight, Star, Quote, Trophy, Shield, Medal, Calendar, Users, Award, Warehouse, Clock, Wrench, Cpu, LucideIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import HeroCarousel from "@/components/HeroCarousel";
 import Footer from "@/components/Footer";
 import FloatingButtons from "@/components/FloatingButtons";
 import SectionHeader from "@/components/SectionHeader";
-import { services, galleryImages, testimonials, credentials, stats } from "@/lib/data";
+import { useFrappe } from "@/hooks/useFrappe";
+import { getServices, getGallery, getAwards } from "@/api/index";
+import type { Service, GalleryImage, Award as AwardType } from "@/types/api";
+import { testimonials, stats } from "@/lib/data";
+
+const iconMap: Record<string, LucideIcon> = { Trophy, Shield, Medal };
+
+const ServiceCardSkeleton = () => (
+  <div className="glass-card overflow-hidden animate-pulse">
+    <div className="h-48 bg-secondary/50" />
+    <div className="p-5 space-y-2">
+      <div className="h-4 bg-secondary/50 rounded w-3/4" />
+      <div className="h-3 bg-secondary/50 rounded w-full" />
+      <div className="h-3 bg-secondary/50 rounded w-2/3" />
+    </div>
+  </div>
+);
+
+const GalleryCardSkeleton = () => (
+  <div className="relative overflow-hidden rounded-xl h-full bg-secondary/50 animate-pulse" />
+);
+
+const AwardCardSkeleton = () => (
+  <div className="glass-card p-6 text-center animate-pulse space-y-2">
+    <div className="w-10 h-10 rounded-full bg-secondary/50 mx-auto" />
+    <div className="h-3 bg-secondary/50 rounded w-2/3 mx-auto" />
+    <div className="h-2 bg-secondary/50 rounded w-1/2 mx-auto" />
+  </div>
+);
 
 const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
   const ref = useRef(null);
@@ -55,6 +83,10 @@ const whyUs = [
 const Index = () => {
   const statIcons = [Calendar, Users, Award, Star];
 
+  const { data: services, loading: servicesLoading } = useFrappe<Service[]>(getServices);
+  const { data: galleryImages, loading: galleryLoading } = useFrappe<GalleryImage[]>(getGallery);
+  const { data: awards, loading: awardsLoading } = useFrappe<AwardType[]>(getAwards);
+
   return (
     <main>
       <Navbar />
@@ -101,29 +133,31 @@ const Index = () => {
         <div className="container mx-auto">
           <SectionHeader label="What We Do" title="Our" highlight="Services" />
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-            {services.slice(0, 4).map((service) => (
-              <AnimatedSection key={service.slug}>
-                <Link to={`/services/${service.slug}`}>
-                  <motion.div
-                    whileHover={{ y: -8 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="glass-card overflow-hidden group block h-full hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300"
-                  >
-                    <div className="relative h-48 overflow-hidden">
-                      <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-80 group-hover:opacity-50 transition-opacity duration-500" />
-                    </div>
-                    <div className="p-5">
-                      <h3 className="font-heading text-lg mb-2 brand-text group-hover:text-primary transition-colors duration-300">{service.title}</h3>
-                      <p className="text-foreground/60 text-sm leading-relaxed line-clamp-2">{service.description}</p>
-                      <span className="inline-flex items-center gap-1 text-primary text-xs font-medium mt-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                        Learn More <ArrowRight className="w-3 h-3" />
-                      </span>
-                    </div>
-                  </motion.div>
-                </Link>
-              </AnimatedSection>
-            ))}
+            {servicesLoading
+              ? Array.from({ length: 4 }).map((_, i) => <ServiceCardSkeleton key={i} />)
+              : services?.slice(0, 4).map((service) => (
+                  <AnimatedSection key={service.slug}>
+                    <Link to={`/services/${service.slug}`}>
+                      <motion.div
+                        whileHover={{ y: -8 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        className="glass-card overflow-hidden group block h-full hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300"
+                      >
+                        <div className="relative h-48 overflow-hidden">
+                          <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-80 group-hover:opacity-50 transition-opacity duration-500" />
+                        </div>
+                        <div className="p-5">
+                          <h3 className="font-heading text-lg mb-2 brand-text group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                          <p className="text-foreground/60 text-sm leading-relaxed line-clamp-2">{service.short_description}</p>
+                          <span className="inline-flex items-center gap-1 text-primary text-xs font-medium mt-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                            Learn More <ArrowRight className="w-3 h-3" />
+                          </span>
+                        </div>
+                      </motion.div>
+                    </Link>
+                  </AnimatedSection>
+                ))}
           </div>
           <div className="text-center">
             <Link to="/services" className="cta-button-outline text-sm inline-flex items-center gap-2">
@@ -138,20 +172,24 @@ const Index = () => {
         <div className="container mx-auto">
           <SectionHeader label="Our Work" title="Event" highlight="Gallery" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[180px] mb-10">
-            {galleryImages.slice(0, 4).map((img, i) => (
-              <AnimatedSection key={i}>
-                <motion.div
-                  whileHover={{ scale: 1.04 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="relative overflow-hidden rounded-xl group cursor-pointer h-full shadow-md hover:shadow-xl transition-shadow duration-300"
-                >
-                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end justify-center pb-4">
-                    <p className="text-foreground font-medium text-sm backdrop-blur-sm bg-background/30 px-3 py-1 rounded-full">{img.alt}</p>
-                  </div>
-                </motion.div>
-              </AnimatedSection>
-            ))}
+            {galleryLoading
+              ? Array.from({ length: 4 }).map((_, i) => (
+                  <AnimatedSection key={i}><GalleryCardSkeleton /></AnimatedSection>
+                ))
+              : galleryImages?.slice(0, 4).map((img, i) => (
+                  <AnimatedSection key={img.name ?? i}>
+                    <motion.div
+                      whileHover={{ scale: 1.04 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      className="relative overflow-hidden rounded-xl group cursor-pointer h-full shadow-md hover:shadow-xl transition-shadow duration-300"
+                    >
+                      <img src={img.image} alt={img.alt_text} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end justify-center pb-4">
+                        <p className="text-foreground font-medium text-sm backdrop-blur-sm bg-background/30 px-3 py-1 rounded-full">{img.alt_text}</p>
+                      </div>
+                    </motion.div>
+                  </AnimatedSection>
+                ))}
           </div>
           <div className="text-center">
             <Link to="/gallery" className="cta-button-outline text-sm inline-flex items-center gap-2">
@@ -227,19 +265,24 @@ const Index = () => {
         <div className="container mx-auto">
           <SectionHeader label="Our Credentials" title="Awards &" highlight="Certificates" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
-            {credentials.map((c) => (
-              <AnimatedSection key={c.title}>
-                <motion.div
-                  whileHover={{ y: -6, scale: 1.03 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 cursor-default"
-                >
-                  <Trophy className="w-10 h-10 text-primary mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300" />
-                  <h3 className="font-semibold text-sm mb-1">{c.title}</h3>
-                  <p className="text-xs text-muted-foreground">{c.subtitle}</p>
-                </motion.div>
-              </AnimatedSection>
-            ))}
+            {awardsLoading
+              ? Array.from({ length: 4 }).map((_, i) => <AwardCardSkeleton key={i} />)
+              : awards?.map((award) => {
+                  const Icon = iconMap[award.icon] ?? Trophy;
+                  return (
+                    <AnimatedSection key={award.name}>
+                      <motion.div
+                        whileHover={{ y: -6, scale: 1.03 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        className="glass-card p-6 text-center group hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 cursor-default"
+                      >
+                        <Icon className="w-10 h-10 text-primary mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300" />
+                        <h3 className="font-semibold text-sm mb-1">{award.title}</h3>
+                        <p className="text-xs text-muted-foreground">{award.issuing_body}</p>
+                      </motion.div>
+                    </AnimatedSection>
+                  );
+                })}
           </div>
           <div className="text-center">
             <Link to="/awards" className="cta-button-outline text-sm inline-flex items-center gap-2">
