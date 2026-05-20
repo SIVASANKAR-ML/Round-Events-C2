@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+// ?? (not ||) so empty string from .env.production is kept as-is (not replaced by fallback)
+// .replace strips trailing slash to avoid double-slash when prepending to /files/ paths
+const BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
 
 
 const api = axios.create({
