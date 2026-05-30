@@ -80,6 +80,60 @@ const whyUs = [
   },
 ];
 
+const faqs = [
+  {
+    question: "Why should we hire an event management company?",
+    answer: "Partnering with an event management company streamlines the entire event process, freeing up your time and reducing costs. Our experienced team handles every detail — from planning to execution — so your event unfolds exactly the way you envisioned.",
+  },
+  {
+    question: "Can you arrange a corporate event for my office?",
+    answer: "Absolutely. As one of Kerala's leading corporate event specialists, we deliver end-to-end solutions tailored to your organization's specific needs — ensuring a polished, professional event every time.",
+  },
+  {
+    question: "What does your unique service include?",
+    answer: "Our portfolio covers a wide spectrum — from high-profile corporate gatherings and dream weddings to live artist showcases. Each service is crafted to align precisely with your goals and expectations.",
+  },
+  {
+    question: "Can you handle crowded events?",
+    answer: "Yes. We have extensive experience managing events with audiences from 500 to 30,000 attendees. We handle venue selection, crowd logistics, and on-ground management to keep everything running smoothly.",
+  },
+  {
+    question: "How much will it cost to hire your event management services?",
+    answer: "Pricing varies based on the scope of your event. Key factors include the venue, event date, number of guests, type of event, catering requirements, and planned activities. We'll work with you to build a package that fits your vision and budget.",
+  },
+  {
+    question: "Can you customise my corporate events?",
+    answer: "Absolutely. Customization is at the heart of what we do. Share your vision and requirements with us, and our team will build a completely tailored plan from the ground up.",
+  },
+  {
+    question: "What is the best time to hire an event management company?",
+    answer: "The sooner, the better. As soon as you decide to host an event, reach out to us. Early engagement allows us to cover every aspect — from concept and theme to décor and design — without any last-minute rush.",
+  },
+  {
+    question: "Can you arrange events in a budget-friendly manner?",
+    answer: "Yes. We specialize in creating memorable experiences within your budget. Our goal is to deliver maximum impact without unnecessary expenditure, so you can celebrate stress-free.",
+  },
+  {
+    question: "Why should we include entertainment at an event?",
+    answer: "Entertainment elevates any event from ordinary to extraordinary. Whether it's a live band, DJ, EMCEE, or a special performance, the right entertainment keeps energy high and creates lasting memories for your guests.",
+  },
+  {
+    question: "Can you help me find the perfect venue for corporate and wedding events?",
+    answer: "Yes. We help you discover and secure the ideal venue for your event — from intimate spaces to grand luxury halls. With our network of venues across various budgets, finding the perfect fit has never been easier.",
+  },
+];
+
+const FaqAccordion = ({ faqs }: { faqs: { question: string; answer: string }[] }) => (
+  <div className="space-y-2">
+    {faqs.map((faq, i) => (
+      <div key={i} className="rounded-xl bg-card/40 backdrop-blur-sm px-6 py-5">
+        <p className="font-heading text-sm font-semibold brand-text mb-2">{faq.question}</p>
+        <p className="text-foreground/70 text-sm leading-relaxed">{faq.answer}</p>
+      </div>
+    ))}
+  </div>
+);
+
 const Index = () => {
   const statIcons = [Calendar, Users, Award, Star];
 
@@ -260,7 +314,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Awards Preview */}
+      {/* Awards Preview
       <section className="section-padding bg-secondary/30">
         <div className="container mx-auto">
           <SectionHeader label="Our Credentials" title="Awards &" highlight="Certificates" />
@@ -289,6 +343,16 @@ const Index = () => {
               View All Awards <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
+        </div>
+      </section> */}
+
+      {/* FAQs */}
+      <section className="section-padding">
+        <div className="container mx-auto">
+          <SectionHeader label="FAQs" title="Frequently Asked" highlight="Questions" />
+          <AnimatedSection className="max-w-3xl mx-auto">
+            <FaqAccordion faqs={faqs} />
+          </AnimatedSection>
         </div>
       </section>
 
