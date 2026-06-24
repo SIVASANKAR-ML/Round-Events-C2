@@ -52,6 +52,20 @@ export interface Award {
   sort_order: number;
 }
 
+export interface BlogPost {
+  name: string;
+  title: string;
+  slug: string;
+  featured_image: string;
+  excerpt: string;
+  author: string;
+  published_date: string;
+}
+
+export interface BlogPostDetail extends BlogPost {
+  content: string;
+}
+
 export interface SubmitEnquiryParams {
   fullName: string;
   phone: string;

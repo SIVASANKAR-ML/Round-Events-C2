@@ -6,6 +6,8 @@ import type {
   ServiceDetail,
   CareerOpening,
   Award,
+  BlogPost,
+  BlogPostDetail,
   SubmitEnquiryParams,
   SubmitJobApplicationParams,
   SuccessResponse,
@@ -48,3 +50,9 @@ export const submitJobApplication = ({ fullName, email, phone, positionApplied, 
 
 export const getAwards = (): Promise<Award[]> =>
   api.get(`/api/method/${APP}.api.awards.get_awards`).then((r) => r.data.message);
+
+export const getBlogPosts = (): Promise<BlogPost[]> =>
+  api.get(`/api/method/${APP}.api.blog.get_blog_posts`).then((r) => r.data.message);
+
+export const getBlogPost = (slug: string): Promise<BlogPostDetail> =>
+  api.get(`/api/method/${APP}.api.blog.get_blog_post`, { params: { slug } }).then((r) => r.data.message);

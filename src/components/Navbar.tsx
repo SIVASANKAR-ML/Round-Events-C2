@@ -19,6 +19,7 @@ const navLinks = [
     ],
   },
   { label: "Gallery", href: "/gallery" },
+  { label: "Blog", href: "/blog" },
   { label: "Testimonials", href: "/testimonials" },
   // { label: "Awards", href: "/awards" },
   { label: "Career", href: "/career" },
