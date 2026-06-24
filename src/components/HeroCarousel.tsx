@@ -54,35 +54,42 @@ const HeroCarousel = () => {
             alt={slide.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/30" />
         </motion.div>
       </AnimatePresence>
 
-      {/* Content */}
-      <div className="relative z-10 h-full flex items-center justify-center">
-        <div className="container mx-auto px-4 text-center">
+      {/* Marquee title — seamless infinite scroll */}
+      <div className="absolute bottom-40 md:bottom-48 left-0 w-full overflow-hidden z-10 pointer-events-none">
+        <motion.div
+          key={`title-${current}`}
+          className="flex whitespace-nowrap"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 16, ease: "linear", repeat: Infinity }}
+        >
+          {[slide.title, slide.title, slide.title, slide.title].map((t, i) => (
+            <h1
+              key={i}
+              className="font-heading text-5xl md:text-7xl lg:text-8xl tracking-widest flex-shrink-0 pr-20"
+            >
+              {t}&nbsp;·
+            </h1>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Content — bottom-left corner */}
+      <div className="relative z-10 h-full flex items-end pb-10 md:pb-14">
+        <div className="px-6 md:px-12 lg:px-16 max-w-xl">
           <motion.p
             key={`sub-${current}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="font-subheading text-lg md:text-xl text-primary tracking-[0.3em] uppercase mb-4"
+            className="font-subheading text-sm md:text-base text-primary tracking-[0.3em] uppercase mb-3"
           >
             Premium Event Planners in Kochi
           </motion.p>
-
-          <AnimatePresence mode="wait">
-            <motion.h1
-              key={`title-${current}`}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.6 }}
-              className="font-heading text-4xl md:text-6xl lg:text-7xl tracking-wide mb-3 leading-tight"
-            >
-              {slide.title}
-            </motion.h1>
-          </AnimatePresence>
 
           <AnimatePresence mode="wait">
             <motion.p
@@ -91,20 +98,17 @@ const HeroCarousel = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="font-subheading text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto mb-10 italic"
+              className="font-subheading text-base md:text-lg text-foreground/70 mb-8 italic text-left"
             >
               {slide.subtitle}
             </motion.p>
           </AnimatePresence>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 items-start">
             <Link to="/contact" className="cta-button text-base">
               Request a Quote
             </Link>
-            
-            <a  href="tel:+919876543210"
-              className="cta-button-outline text-base flex items-center gap-2"
-            >
+            <a href="tel:+919876543210" className="cta-button-outline text-base flex items-center gap-2">
               <Phone className="w-4 h-4" />
               Call Now
             </a>

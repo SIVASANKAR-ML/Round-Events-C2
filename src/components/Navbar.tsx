@@ -45,13 +45,10 @@ const Navbar = () => {
             src={logo} 
             alt="Round Events India Logo" 
             className="h-10 md:h-12 w-auto object-contain"
-            style={{
-              mixBlendMode: 'darken',
-              filter: 'contrast(1.1) brightness(1.1)'
-            }}
+       
           />
           <span className="hidden sm:inline">ROUND EVENTS INDIA</span>
-          <span className="sm:hidden">ROUND EVENTS</span>
+         
         </Link>
 
         {/* Desktop Nav */}

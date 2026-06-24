@@ -5,7 +5,7 @@ const FloatingButtons = () => {
     <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
       {/* WhatsApp */}
       <a
-        href="https://wa.me/919876543210"
+        href="https://wa.me/9846337575"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
@@ -18,7 +18,7 @@ const FloatingButtons = () => {
 
       {/* Instagram */}
       <a
-        href="https://instagram.com/roundevents"
+        href="https://instagram.com/round_events_india"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Follow on Instagram"

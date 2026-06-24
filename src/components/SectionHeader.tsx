@@ -19,9 +19,9 @@ const SectionHeader = ({ label, title, highlight }: SectionHeaderProps) => {
       transition={{ duration: 0.6 }}
       className="text-center mb-16"
     >
-      <p className="font-subheading text-primary tracking-[0.2em] uppercase text-sm mb-3">
+      {/* <p className="font-subheading text-primary tracking-[0.2em] uppercase text-sm mb-3">
         {label}
-      </p>
+      </p> */}
       <h2 className="font-heading text-3xl md:text-4xl">
         {title} <span className="brand-text">{highlight}</span>
       </h2>

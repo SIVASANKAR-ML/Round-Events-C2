@@ -26,16 +26,16 @@ const ServiceCardSkeleton = () => (
 );
 
 const GalleryCardSkeleton = () => (
-  <div className="relative overflow-hidden rounded-xl h-full bg-secondary/50 animate-pulse" />
+  <div className="glass-card overflow-hidden bg-secondary/50 animate-pulse" />
 );
 
-const AwardCardSkeleton = () => (
-  <div className="glass-card p-6 text-center animate-pulse space-y-2">
-    <div className="w-10 h-10 rounded-full bg-secondary/50 mx-auto" />
-    <div className="h-3 bg-secondary/50 rounded w-2/3 mx-auto" />
-    <div className="h-2 bg-secondary/50 rounded w-1/2 mx-auto" />
-  </div>
-);
+// const AwardCardSkeleton = () => (
+//   <div className="glass-card p-6 text-center animate-pulse space-y-2">
+//     <div className="w-10 h-10 rounded-full bg-secondary/50 mx-auto" />
+//     <div className="h-3 bg-secondary/50 rounded w-2/3 mx-auto" />
+//     <div className="h-2 bg-secondary/50 rounded w-1/2 mx-auto" />
+//   </div>
+// );
 
 const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
   const ref = useRef(null);
