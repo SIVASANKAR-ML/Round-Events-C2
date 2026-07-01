@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import { ArrowRight, Star, Quote, Trophy, Shield, Medal, Calendar, Users, Award, Warehouse, Clock, Wrench, Cpu, LucideIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import HeroCarousel from "@/components/HeroCarousel";
 import Footer from "@/components/Footer";
 import FloatingButtons from "@/components/FloatingButtons";
 import SectionHeader from "@/components/SectionHeader";
+import LogoSection from "@/components/LogoSection";
 import { useFrappe } from "@/hooks/useFrappe";
 import { getServices, getGallery, getAwards } from "@/api/index";
 import type { Service, GalleryImage, Award as AwardType } from "@/types/api";
@@ -50,6 +51,106 @@ const AnimatedSection = ({ children, className = "" }: { children: React.ReactNo
     >
       {children}
     </motion.div>
+  );
+};
+
+const WhyUsCarousel = ({ items }: { items: typeof whyUs }) => {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrent((p) => (p + 1) % items.length), 3000);
+    return () => clearInterval(timer);
+  }, [items.length]);
+
+  const item = items[current];
+
+  return (
+    <div className="max-w-xl mx-auto">
+      <div className="overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={item.title}
+            initial={{ opacity: 0, x: 80 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -80 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="glass-card p-8 text-center"
+          >
+            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <item.icon className="w-7 h-7 text-primary" />
+            </div>
+            <h3 className="font-heading text-lg mb-2 brand-text">{item.title}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      <div className="flex justify-center gap-2 mt-6">
+        {items.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`w-2.5 h-2.5 rounded-full transition-all ${
+              i === current ? "bg-primary w-8" : "bg-foreground/30"
+            }`}
+            aria-label={`Go to reason ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const TestimonialsCarousel = ({ items }: { items: typeof testimonials }) => {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrent((p) => (p + 1) % items.length), 3000);
+    return () => clearInterval(timer);
+  }, [items.length]);
+
+  const t = items[current];
+
+  return (
+    <div className="max-w-xl mx-auto">
+      <div className="overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={t.name}
+            initial={{ opacity: 0, x: 80 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -80 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="glass-card p-8 relative"
+          >
+            <Quote className="w-8 h-8 text-primary/20 absolute top-6 right-6" />
+            <div className="flex gap-1 mb-4">
+              {Array.from({ length: t.rating }).map((_, j) => (
+                <Star key={j} className="w-4 h-4 fill-primary text-primary" />
+              ))}
+            </div>
+            <p className="text-foreground/70 text-sm leading-relaxed mb-6 italic font-subheading text-base">
+              &ldquo;{t.text}&rdquo;
+            </p>
+            <div>
+              <p className="font-semibold text-sm">{t.name}</p>
+              <p className="text-xs text-muted-foreground">{t.event}</p>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      <div className="flex justify-center gap-2 mt-6">
+        {items.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`w-2.5 h-2.5 rounded-full transition-all ${
+              i === current ? "bg-primary w-8" : "bg-foreground/30"
+            }`}
+            aria-label={`Go to testimonial ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 
@@ -257,8 +358,15 @@ const Index = () => {
       <section className="section-padding bg-secondary/30">
         <div className="container mx-auto">
           <SectionHeader label="Why Choose Us" title="The Round Events" highlight="Difference" />
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {whyUs.map((item, i) => (
+
+          {/* Mobile: auto-advancing swipe carousel */}
+          <div className="md:hidden">
+            <WhyUsCarousel items={whyUs} />
+          </div>
+
+          {/* Desktop: static grid */}
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {whyUs.map((item) => (
               <AnimatedSection key={item.title}>
                 <motion.div
                   whileHover={{ y: -6, scale: 1.03 }}
@@ -277,36 +385,14 @@ const Index = () => {
         </div>
       </section>
 
+      <LogoSection />
+
       {/* Testimonials Preview */}
       <section className="section-padding">
         <div className="container mx-auto">
           <SectionHeader label="Testimonials" title="What Our" highlight="Clients Say" />
-          <div className="grid md:grid-cols-3 gap-8 mb-10">
-            {testimonials.slice(0, 3).map((t) => (
-              <AnimatedSection key={t.name}>
-                <motion.div
-                  whileHover={{ y: -6 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="glass-card p-8 relative h-full hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-300 group"
-                >
-                  <Quote className="w-8 h-8 text-primary/20 absolute top-6 right-6 group-hover:text-primary/40 group-hover:scale-110 transition-all duration-300" />
-                  <div className="flex gap-1 mb-4">
-                    {Array.from({ length: t.rating }).map((_, j) => (
-                      <Star key={j} className="w-4 h-4 fill-primary text-primary" />
-                    ))}
-                  </div>
-                  <p className="text-foreground/70 text-sm leading-relaxed mb-6 italic font-subheading text-base">
-                    &ldquo;{t.text}&rdquo;
-                  </p>
-                  <div>
-                    <p className="font-semibold text-sm">{t.name}</p>
-                    <p className="text-xs text-muted-foreground">{t.event}</p>
-                  </div>
-                </motion.div>
-              </AnimatedSection>
-            ))}
-          </div>
-          <div className="text-center">
+          <TestimonialsCarousel items={testimonials.slice(0, 3)} />
+          <div className="text-center mt-10">
             <Link to="/testimonials" className="cta-button-outline text-sm inline-flex items-center gap-2">
               Read More Reviews <ArrowRight className="w-4 h-4" />
             </Link>
