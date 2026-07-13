@@ -39,7 +39,7 @@ const HeroCarousel = () => {
   const slide: HeroSlide = slides[current];
 
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative w-full aspect-video min-h-[680px] md:min-h-0 overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
@@ -54,8 +54,6 @@ const HeroCarousel = () => {
             alt={slide.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/30" />
         </motion.div>
       </AnimatePresence>
 
@@ -108,7 +106,7 @@ const HeroCarousel = () => {
             <Link to="/contact" className="cta-button text-base">
               Request a Quote
             </Link>
-            <a href="tel:+919876543210" className="cta-button-outline text-base flex items-center gap-2">
+            <a href="tel:+919876543210" className="cta-button-outline text-base hidden sm:flex items-center gap-2">
               <Phone className="w-4 h-4" />
               Call Now
             </a>

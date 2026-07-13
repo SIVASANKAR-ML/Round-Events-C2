@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
-import { useTheme } from "@/hooks/use-theme";
+import { Menu, X, ChevronDown } from "lucide-react";
 import logo from "@/assets/logo.png"
 
 const navLinks = [
@@ -29,7 +28,7 @@ const navLinks = [
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
   const isActive = (href: string) => {
@@ -37,8 +36,19 @@ const Navbar = () => {
     return location.pathname.startsWith(href);
   };
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-nav">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+        scrolled ? "glass-nav" : "bg-transparent"
+      }`}
+    >
       <div className="container mx-auto flex items-center justify-between h-16 md:h-20 px-4">
         <Link to="/" className="flex items-center gap-3 font-heading text-xl md:text-2xl tracking-widest brand-text">
           <img 
@@ -104,14 +114,6 @@ const Navbar = () => {
             )
           )}
 
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg hover:bg-secondary/50 transition-colors text-foreground/70 hover:text-primary"
-            aria-label="Toggle theme"
-          >
-            {theme === "light" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-          </button>
-
           <a
             href="https://example.com/book"
             target="_blank"
@@ -124,13 +126,6 @@ const Navbar = () => {
 
         {/* Mobile Controls */}
         <div className="lg:hidden flex items-center gap-3">
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg hover:bg-secondary/50 transition-colors"
-            aria-label="Toggle theme"
-          >
-            {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-          </button>
           <button
             className="text-foreground"
             onClick={() => setMobileOpen(!mobileOpen)}
