@@ -24,12 +24,5 @@ export default defineConfig(({ mode }) => ({
     outDir: "../round_events/public/round_events_landing",
     assetsDir: ".",
     emptyOutDir: true,
-    rollupOptions: {
-      output: {
-        entryFileNames: "index.js",
-        assetFileNames: (info) =>
-          info.names?.[0]?.endsWith(".css") ? "index.css" : "[name][extname]",
-      },
-    },
   },
 }));
