@@ -39,7 +39,7 @@ const HeroCarousel = () => {
   const slide: HeroSlide = slides[current];
 
   return (
-    <section className="relative w-full aspect-video min-h-[680px] md:min-h-0 overflow-hidden">
+    <section className="relative w-full aspect-video min-h-[620px] md:aspect-[16/8] md:min-h-0 md:max-h-screen overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
@@ -57,25 +57,18 @@ const HeroCarousel = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* Content — bottom-anchored, title marquee stacked above the details */}
+      {/* Content — bottom-anchored, title stacked above the details */}
       <div className="relative z-10 h-full flex flex-col justify-end pb-8 md:pb-14">
-        {/* Marquee title — seamless infinite scroll */}
-        <div className="w-full overflow-hidden mb-4 md:mb-6 pointer-events-none">
-          <motion.div
+        <div className="px-6 md:px-12 lg:px-16 max-w-xl mb-4 md:mb-6">
+          <motion.h1
             key={`title-${current}`}
-            className="flex whitespace-nowrap"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 16, ease: "linear", repeat: Infinity }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="font-heading text-3xl sm:text-4xl md:text-6xl lg:text-7xl tracking-widest"
           >
-            {[slide.title, slide.title, slide.title, slide.title].map((t, i) => (
-              <h1
-                key={i}
-                className="font-heading text-3xl sm:text-4xl md:text-7xl lg:text-8xl tracking-widest flex-shrink-0 pr-10 md:pr-20"
-              >
-                {t}&nbsp;·
-              </h1>
-            ))}
-          </motion.div>
+            {slide.title}
+          </motion.h1>
         </div>
 
         <div className="px-6 md:px-12 lg:px-16 max-w-xl">

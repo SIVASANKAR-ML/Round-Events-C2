@@ -50,15 +50,20 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between h-16 md:h-20 px-4">
-        <Link to="/" className="flex items-center gap-3 font-heading text-xl md:text-2xl tracking-widest brand-text">
-          <img 
-            src={logo} 
-            alt="Round Events India Logo" 
-            className="h-10 md:h-12 w-auto object-contain"
-       
+        <Link
+          to="/"
+          className={`flex items-center gap-3 font-heading text-xl md:text-2xl tracking-widest brand-text ${
+            scrolled ? "" : "nav-shadow"
+          }`}
+        >
+          <img
+            src={logo}
+            alt="Round Events India Logo"
+            className={`h-10 md:h-12 w-auto object-contain ${scrolled ? "" : "drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]"}`}
+
           />
           <span className="hidden sm:inline">ROUND EVENTS INDIA</span>
-         
+
         </Link>
 
         {/* Desktop Nav */}
@@ -75,10 +80,10 @@ const Navbar = () => {
                   to={link.href}
                   className={`flex items-center gap-1 text-sm font-medium transition-colors ${
                     isActive(link.href) ? "text-primary" : "text-foreground/70 hover:text-primary"
-                  }`}
+                  } ${scrolled ? "" : "nav-shadow"}`}
                 >
                   {link.label}
-                  <ChevronDown className="w-3.5 h-3.5" />
+                  <ChevronDown className={`w-3.5 h-3.5 ${scrolled ? "" : "drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"}`} />
                 </Link>
                 <AnimatePresence>
                   {servicesOpen && (
@@ -107,7 +112,7 @@ const Navbar = () => {
                 to={link.href}
                 className={`text-sm font-medium transition-colors ${
                   isActive(link.href) ? "text-primary" : "text-foreground/70 hover:text-primary"
-                }`}
+                } ${scrolled ? "" : "nav-shadow"}`}
               >
                 {link.label}
               </Link>
@@ -127,7 +132,7 @@ const Navbar = () => {
         {/* Mobile Controls */}
         <div className="lg:hidden flex items-center gap-3">
           <button
-            className="text-foreground"
+            className={`text-foreground ${scrolled ? "" : "drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]"}`}
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

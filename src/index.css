@@ -130,6 +130,10 @@
     @apply text-primary;
   }
 
+  .nav-shadow {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65), 0 1px 14px rgba(0, 0, 0, 0.45);
+  }
+
   .section-padding {
     @apply py-20 md:py-28 px-4 md:px-8;
   }
