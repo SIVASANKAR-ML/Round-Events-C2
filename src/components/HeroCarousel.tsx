@@ -59,13 +59,13 @@ const HeroCarousel = () => {
 
       {/* Content — bottom-anchored, title stacked above the details */}
       <div className="relative z-10 h-full flex flex-col justify-end pb-8 md:pb-14">
-        <div className="px-6 md:px-12 lg:px-16 max-w-xl mb-4 md:mb-6">
+        <div className="px-6 md:px-12 lg:px-16 w-full mb-4 md:mb-6 overflow-hidden">
           <motion.h1
             key={`title-${current}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="font-heading text-3xl sm:text-4xl md:text-6xl lg:text-7xl tracking-widest"
+            className="font-heading whitespace-nowrap tracking-widest text-[clamp(1.1rem,4.2vw,3.75rem)]"
           >
             {slide.title}
           </motion.h1>
